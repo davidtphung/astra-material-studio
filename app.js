@@ -190,7 +190,7 @@ function updateEnvironment() {
 
 async function initialize() {
   try {
-    const response = await fetch('./world.json');
+    const response = await fetch('./world.json?v=0.2.1');
     if (!response.ok) throw Error(`World asset HTTP ${response.status}`);
     const data = await response.json();
     renderer = new THREE.WebGLRenderer({ canvas: $('scene'), antialias: true, preserveDrawingBuffer: true });
