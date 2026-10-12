@@ -15,14 +15,14 @@
     "Motivated sky, task lamp and sign lights",
     "Bounded atmospheric haze",
     "User objects inside generated collection preserved",
-    "Regeneration keeps all datablock counts stable: {'objects': 4356, 'meshes': 40, 'materials': 31, 'lights': 4, 'cameras': 4, 'curves': 3} \u2192 {'objects': 4356, 'meshes': 40, 'materials': 31, 'lights': 4, 'cameras': 4, 'curves': 3}",
+    "Regeneration keeps all datablock counts stable: {'objects': 4520, 'meshes': 40, 'materials': 31, 'lights': 4, 'cameras': 4, 'curves': 3} \u2192 {'objects': 4520, 'meshes': 40, 'materials': 31, 'lights': 4, 'cameras': 4, 'curves': 3}",
     "Efficient shared geometry",
     "Rooftop saved and reopened",
     "Active contextual camera persists",
     "Actual Cycles rooftop render",
     "Clean add-on unregistration"
   ],
-  "objects": 4340,
+  "objects": 4504,
   "render": "1200 x 900, Cycles CPU, 40 samples",
   "scope": "Fictional procedural rooftop. Desktop/mobile browser previews are approximations."
 }

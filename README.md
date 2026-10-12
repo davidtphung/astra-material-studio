@@ -107,7 +107,7 @@ No mobile physical-device testing or exhaustive browser compatibility matrix was
 
 The model now sits in a complete, fictional Kowloon-inspired rooftop workshop. This is a procedural set, not a real-address survey, photogrammetry asset, or historical reconstruction.
 
-- A 16 × 14 metre tiled roof, 0.90 m workbench, 0.99 m sample support, stools, a measurement rule, paint tin, gloves, crates, cones, and plants.
+- A supporting building and street beneath a 16 × 14 metre tiled roof, 0.90 m workbench, 0.99 m sample support, stools, a measurement rule, paint tin, gloves, crates, cones, and plants.
 - Surrounding apartment buildings with front and side windows, balconies, floor bands, AC units, drain stacks, and antennae.
 - A service room, roof tank, utility pipes, laundry lines, railings, signs, drains, and damp patches.
 - **Detail / Workbench / Neighbourhood** camera views, **Expand scene** mode, camera reset, four lighting moods, surface dampness and atmospheric haze controls.

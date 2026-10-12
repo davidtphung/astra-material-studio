@@ -20,10 +20,12 @@ The initial website is an interactive approximation, not a remote Blender sessio
 
 - Original 43 Blender material-toolkit checks rerun and passed.
 - 20 additional rooftop checks passed: deterministic shared scene data, browser/Blender parity, environment settings import, UI generation operator, original-scene preservation, metre units, material assignment, exact sample/support contact, three cameras, three motivated lights, bounded haze, unowned-object preservation, stable datablock counts, shared geometry, save/reopen, active camera persistence, real render, and unregister.
-- 4,340 shared set elements, with fewer than 65 unique mesh datablocks in Blender.
+- 4,504 shared set elements, with fewer than 65 unique mesh datablocks in Blender.
 - Real rooftop Cycles CPU render generated at 1200 × 900 / 40 samples, then visually reviewed for framing, contact, scene detail, shadows and material response.
 - Website syntax checks and static build passed. Browser shows no shader errors.
 - Phone viewport 390 × 844: no horizontal overflow, functioning scene, environment slider updates, JSON export, and expanded scene mode. Desktop testing covers camera and nighttime lighting changes.
 - Updated ZIP installed and enabled in an isolated Blender scripts directory. The actual browser-downloaded environment file generated the rooftop successfully with wetness 0.5 and haze 0; zero haze omitted the atmosphere geometry.
 - The updated scene export records dampness and haze explicitly. The downloaded browser fixture had wetness 0.5 and haze 0.
 - Remaining limitations: no physical-device performance benchmark, no fluid simulation or moving cloth, static local environment reflections, and a fictional architectural set rather than a scan.
+
+Final visual corrections: removed AC/sign intersections and added the host building and street under the roof. The 20 rooftop checks and render were rerun for the corrected shared geometry.

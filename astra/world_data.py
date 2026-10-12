@@ -46,6 +46,18 @@ def build_world(seed=42):
         item={'name':name,'material':material,'start':start,'end':end,'radius':radius,'geometry':'rod'}
         objects.append(item)
     # A 16 x 14 metre inhabited roof, with slab thickness and tiled drainage slopes implied.
+    # The roof belongs to an actual supporting building, down to street level.
+    add('Neighbourhood street surface','grout',[0,-8.45,0],[160,.2,160])
+    add('Host building structure','plaster2',[0,-4.4,0],[16,7.8,14])
+    add('Host building pavement','concrete',[0,-8.25,0],[17,.2,15])
+    for y in [-6.6,-3.6]:
+        for x in range(-7,8):
+            add('Host front window frame','trim',[x,y,7.06],[.8,1.6,.12])
+            add('Host front window','glass',[x,y,7.133],[.68,1.44,.025])
+        for side in [-1,1]:
+            for z in range(-6,7):
+                add('Host side window frame','trim',[side*8.06,y,z],[.12,1.6,.8])
+                add('Host side window','glass',[side*8.133,y,z],[.025,1.44,.68])
     add('Structural roof slab','concrete',[0,-.25,0],[16,.5,14])
     add('Roof tile grout','grout',[0,.006,0],[16,.02,14])
     for x in range(-8,8):
@@ -177,7 +189,7 @@ def build_world(seed=42):
                     rod('Balcony handrail','trim',[wx-.5,y+1.15,z+d/2+1.05],[wx+.5,y+1.15,z+d/2+1.05],.02)
                     for bx in [-.25,0,.25]:
                         rod('Balcony infill','trim',[wx+bx,y+.25,z+d/2+1.05],[wx+bx,y+1.15,z+d/2+1.05],.01)
-                if rng.random()<.22:
+                if rng.random()<.22 and not (index==2 and y==4):
                     add('Facade AC box','white',[wx,y-.1,z+d/2+.35],[.65,.4,.55])
         # Side elevations remain detailed when orbiting the set.
         for side in [-1,1]:
