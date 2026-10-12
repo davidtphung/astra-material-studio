@@ -1,0 +1,60 @@
+{
+  "blender": "5.2.2 LTS",
+  "devices": [
+    [
+      "Apple M3 Pro",
+      "CPU"
+    ],
+    [
+      "Apple M3 Pro (GPU - 18 cores)",
+      "METAL"
+    ]
+  ],
+  "checks": [
+    "Add-on registration",
+    "metal surface graph linked",
+    "metal controls exposed",
+    "metal resource reuse",
+    "paint surface graph linked",
+    "paint controls exposed",
+    "paint resource reuse",
+    "concrete surface graph linked",
+    "concrete controls exposed",
+    "concrete resource reuse",
+    "wood surface graph linked",
+    "wood controls exposed",
+    "wood resource reuse",
+    "glass surface graph linked",
+    "glass controls exposed",
+    "glass resource reuse",
+    "plastic surface graph linked",
+    "plastic controls exposed",
+    "plastic resource reuse",
+    "Material assignment",
+    "PBR filename detection",
+    "Normal and bump map composition",
+    "Base color interpretation",
+    "Normal data interpretation",
+    "DirectX green inversion",
+    "Explicit packed channel",
+    "Missing map reporting",
+    "Missing image rejected",
+    "Browser settings import",
+    "Imported settings applied",
+    "Final quality preset",
+    "Render settings restoration",
+    "Demo preserves original scene",
+    "Repeated demo has no object or mesh duplication",
+    "Editable studio lighting rig",
+    "Overview and close-up cameras",
+    "Glass has actual wall thickness",
+    "No scene validation errors",
+    "Safe CPU render device",
+    "Demo saved and reopened",
+    "Actual Cycles smoke render",
+    "Add-on unregistration",
+    "Repeated register/unregister"
+  ],
+  "warnings": [],
+  "render": "800 \u00d7 600, 24 samples, Cycles CPU"
+}
