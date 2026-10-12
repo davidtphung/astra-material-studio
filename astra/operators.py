@@ -3,7 +3,7 @@ import re
 import bpy
 from bpy.props import StringProperty
 from bpy_extras.io_utils import ImportHelper
-from . import materials,scenes,textures,validation
+from . import materials,scenes,textures,validation,environment
 
 class ASTRA_OT_material(bpy.types.Operator):
     bl_idname='astra.create_material'
@@ -42,6 +42,8 @@ class ASTRA_OT_import_settings(bpy.types.Operator,ImportHelper):
         try:
             with open(self.filepath,encoding='utf-8') as f:
                 data=json.load(f)
+            if not isinstance(data,dict):
+                raise ValueError('ASTRA settings must be a JSON object.')
             if data.get('schema')!='astra.look.v1' or data.get('material') not in materials.PRESETS:
                 raise ValueError('Unsupported ASTRA settings file.')
             if not re.fullmatch(r'#[0-9a-fA-F]{6}',data.get('color','')):
@@ -52,10 +54,19 @@ class ASTRA_OT_import_settings(bpy.types.Operator,ImportHelper):
                     raise ValueError('Invalid '+key)
             if data.get('lighting') not in scenes.LIGHTS:
                 raise ValueError('Invalid lighting preset.')
+            for key,options in {'environment':['studio','rooftop'],'view':['detail','bench','wide'],'shape':['sculpture','sphere','block']}.items():
+                if key in data and data[key] not in options:
+                    raise ValueError('Invalid '+key)
+            for key in ['wetness','haze']:
+                if key in data and (not isinstance(data[key],(int,float)) or isinstance(data[key],bool) or not 0<=data[key]<=1):
+                    raise ValueError('Invalid '+key)
             p=context.scene.astra
+            for key in ['environment','view','shape','wetness','haze']:
+                if key in data:
+                    setattr(p,key,data[key])
             for key in ['material','color','roughness','scale','bump','seed','lighting']:
                 setattr(p,key,int(data[key]) if key=='seed' else data[key])
-            self.report({'INFO'},'Settings loaded. Select a mesh and click Create and apply.')
+            self.report({'INFO'},'Settings loaded. Apply the material, or generate the rooftop with these settings.')
             return {'FINISHED'}
         except (OSError,ValueError,TypeError) as exc:
             self.report({'ERROR'},str(exc))
@@ -154,4 +165,23 @@ class ASTRA_OT_validate(bpy.types.Operator):
         self.report({'WARNING'} if result else {'INFO'},context.scene.astra.validation_report[:900])
         return {'FINISHED'}
 
-CLASSES=[ASTRA_OT_material,ASTRA_OT_defaults,ASTRA_OT_import_settings,ASTRA_OT_lighting,ASTRA_OT_camera,ASTRA_OT_quality,ASTRA_OT_restore,ASTRA_OT_demo,ASTRA_OT_scan,ASTRA_OT_pbr,ASTRA_OT_validate]
+class ASTRA_OT_rooftop(bpy.types.Operator):
+    bl_idname='astra.generate_rooftop'
+    bl_label='Generate rooftop environment'
+    bl_description='Creates a separate editable scene; regenerates only ASTRA-owned rooftop objects'
+    bl_options={'REGISTER','UNDO'}
+    def invoke(self,context,event):
+        return context.window_manager.invoke_confirm(self,event)
+    def execute(self,context):
+        p=context.scene.astra
+        if not re.fullmatch(r'#[0-9a-fA-F]{6}',p.color):
+            self.report({'ERROR'},'Use an sRGB color such as #b7bbb5 before generating the rooftop.')
+            return {'CANCELLED'}
+        settings={key:getattr(p,key) for key in ['material','color','roughness','scale','bump','seed','lighting','environment','view','shape','wetness','haze']}
+        scene=environment.create_rooftop(settings)
+        for key,value in settings.items():
+            setattr(scene.astra,key,value)
+        self.report({'INFO'},'Created the rooftop environment in its own scene.')
+        return {'FINISHED'}
+
+CLASSES=[ASTRA_OT_rooftop,ASTRA_OT_material,ASTRA_OT_defaults,ASTRA_OT_import_settings,ASTRA_OT_lighting,ASTRA_OT_camera,ASTRA_OT_quality,ASTRA_OT_restore,ASTRA_OT_demo,ASTRA_OT_scan,ASTRA_OT_pbr,ASTRA_OT_validate]

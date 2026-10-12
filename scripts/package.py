@@ -9,7 +9,7 @@ with zipfile.ZipFile(out/'astra.zip','w',zipfile.ZIP_DEFLATED) as archive:
         archive.write(path,path.relative_to(root))
     archive.write(root/'README.md','astra/README.md')
     archive.write(root/'ASSET_LICENSES.md','astra/ASSET_LICENSES.md')
-for name in ['blender-preview.png','validation.json']:
+for name in ['blender-preview.png','validation.json','rooftop-preview.png','rooftop-validation.json']:
     source=root/'artifacts'/name
     if source.is_file():
         shutil.copy2(source,out/name)

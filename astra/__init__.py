@@ -1,4 +1,4 @@
-bl_info = {'name':'ASTRA Material Studio','author':'DANCO WORLDS','version':(0,1,0),'blender':(5,2,0),'location':'View3D > Sidebar > ASTRA','description':'Procedural materials, PBR import, editable lights and demonstration scenes','category':'Material'}
+bl_info = {'name':'ASTRA Material Studio','author':'DANCO WORLDS','version':(0,2,0),'blender':(5,2,0),'location':'View3D > Sidebar > ASTRA','description':'Procedural materials, PBR import, editable lights and demonstration scenes','category':'Material'}
 import bpy
 from . import properties,operators,ui
 CLASSES=[properties.ASTRA_Settings]+operators.CLASSES+ui.CLASSES

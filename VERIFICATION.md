@@ -15,3 +15,15 @@ Executed on 2026-10-11 (America/Los_Angeles).
 - No backend: data flow is browser controls → local Three.js renderer → file download or shared URL → explicit Blender import.
 
 The initial website is an interactive approximation, not a remote Blender session. Rendering in Blender remains a local operation.
+
+## Rooftop environment update — 2026-10-12
+
+- Original 43 Blender material-toolkit checks rerun and passed.
+- 20 additional rooftop checks passed: deterministic shared scene data, browser/Blender parity, environment settings import, UI generation operator, original-scene preservation, metre units, material assignment, exact sample/support contact, three cameras, three motivated lights, bounded haze, unowned-object preservation, stable datablock counts, shared geometry, save/reopen, active camera persistence, real render, and unregister.
+- 4,340 shared set elements, with fewer than 65 unique mesh datablocks in Blender.
+- Real rooftop Cycles CPU render generated at 1200 × 900 / 40 samples, then visually reviewed for framing, contact, scene detail, shadows and material response.
+- Website syntax checks and static build passed. Browser shows no shader errors.
+- Phone viewport 390 × 844: no horizontal overflow, functioning scene, environment slider updates, JSON export, and expanded scene mode. Desktop testing covers camera and nighttime lighting changes.
+- Updated ZIP installed and enabled in an isolated Blender scripts directory. The actual browser-downloaded environment file generated the rooftop successfully with wetness 0.5 and haze 0; zero haze omitted the atmosphere geometry.
+- The updated scene export records dampness and haze explicitly. The downloaded browser fixture had wetness 0.5 and haze 0.
+- Remaining limitations: no physical-device performance benchmark, no fluid simulation or moving cloth, static local environment reflections, and a fictional architectural set rather than a scan.

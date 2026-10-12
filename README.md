@@ -4,7 +4,7 @@ Interactive browser material explorer and a Blender 5.2.2 toolkit. Built for des
 
 ## Website
 
-Production: https://davidtphung.github.io/astra-material-studio/
+Production: https://sere.davidtphung.com/astra-material-studio/
 
 Source: https://github.com/davidtphung/astra-material-studio
 
@@ -40,7 +40,7 @@ This is a legacy add-on ZIP, not a Blender Extensions package. Only Blender 5.2.
 6. Choose Draft, Look development, or Final and click **Apply render preset (CPU)**.
 7. Click **Validate scene**, then press **F12** to render.
 
-The import only loads controls; applying the material and rig remain explicit actions. Browser and Blender use different procedural representations and lighting, so export transfers artist parameters, not pixel-matched appearance. Browser shape is preview-only and does not modify Blender geometry.
+The import only loads controls; applying the material and rig remain explicit actions. Browser and Blender use different procedural representations and lighting, so export transfers artist parameters, not pixel-matched appearance. Browser shape does not modify existing Blender geometry; explicit rooftop generation uses the selected sample shape.
 
 ### Demonstration
 
@@ -99,6 +99,42 @@ The smoke script tests registration/unregistration, all six shader graphs and co
 
 ## Scope and known limits
 
-This initial release completes the core workflow. The larger brief's additional rubber/leather/fabric/ceramic/stone/asphalt library, geometry-aware wear, oxidation, wetness, dedicated crack/scratch/dirt groups, true triplanar mapping, true displacement, HDRI loading, volumetrics, compositor finishing, and automatic GPU selection are not implemented. There are no placeholder buttons claiming these features.
+This initial release completes the core workflow. The larger brief's additional rubber/leather/fabric/ceramic/stone/asphalt library, geometry-aware wear, oxidation, general material wetness masks (roof dampness is implemented), dedicated crack/scratch/dirt groups, true triplanar mapping, true displacement, HDRI loading, general-purpose volumetric rigs (the rooftop has bounded haze), compositor finishing, and automatic GPU selection are not implemented. There are no placeholder buttons claiming these features.
 
 No mobile physical-device testing or exhaustive browser compatibility matrix was performed. Responsive browser testing covers desktop and a 390 px phone viewport; hardware performance varies. Legacy add-on installation was verified through Blender's add-on installation API, with runtime tests in background mode.
+
+## ASTRA 0.2 — Rooftop field studio
+
+The model now sits in a complete, fictional Kowloon-inspired rooftop workshop. This is a procedural set, not a real-address survey, photogrammetry asset, or historical reconstruction.
+
+- A 16 × 14 metre tiled roof, 0.90 m workbench, 0.99 m sample support, stools, a measurement rule, paint tin, gloves, crates, cones, and plants.
+- Surrounding apartment buildings with front and side windows, balconies, floor bands, AC units, drain stacks, and antennae.
+- A service room, roof tank, utility pipes, laundry lines, railings, signs, drains, and damp patches.
+- **Detail / Workbench / Neighbourhood** camera views, **Expand scene** mode, camera reset, four lighting moods, surface dampness and atmospheric haze controls.
+- Browser environment reflections are captured from the generated scene at the sample position and refreshed when lighting or weather changes. They are static local approximations, not screen-space or per-pixel ray-traced reflections.
+- Browser geometry uses instanced batches. The Blender equivalent uses shared mesh datablocks while keeping individual objects editable.
+
+`astra/world_data.py` defines the complete set using a deterministic seed and Y-up metre coordinates. `python3 scripts/generate-world.py` writes the exact matching browser asset, `web/world.json`. The Blender builder converts the same transforms into Z-up coordinates. Do not hand-edit the generated JSON independently.
+
+### Open or generate the rooftop
+
+Download `web/downloads/astra-rooftop.blend` and open it in Blender 5.2.2. It includes editable geometry, three cameras, procedural materials, a directional sky light, a visible workbench lamp, sign lighting, and bounded volumetric haze.
+
+Alternatively, install the updated ZIP, import an exported browser settings file, then select **ASTRA → Rooftop / Real-world context → Generate rooftop environment**. The explicit generation action creates its own scene and replaces only ASTRA-owned objects in that scene on repeat runs. Unowned objects, including objects placed inside the generated collection, are preserved. Generation never wraps an arbitrary selected user model automatically: it creates the configured sample shape. You can replace the sample manually in the editable scene.
+
+The browser export now includes `environment`, `view`, `shape`, `wetness`, and `haze`. Old v1 material exports remain accepted. Browser and Blender share geometry and artist controls, but use different shading, sky, and atmospheric implementations; their images will differ. Browser haze is depth-based fog; Blender uses bounded volume scattering. Dampness changes roughness and color and reveals thin water patches; it is not a fluid simulation. Buildings have exterior detail, not full interiors. Laundry and plants remain static. No stock image, external model, or HDRI is used.
+
+### Validate and publish updates
+
+```sh
+python3 scripts/generate-world.py
+blender --background --factory-startup --python-exit-code 1 --python tests/blender_smoke.py
+blender --background --factory-startup --python-exit-code 1 --python tests/rooftop_smoke.py
+python3 scripts/package.py
+npm run check
+npm run build
+# Review and commit changes, push main, then:
+python3 scripts/publish-pages.py
+```
+
+The publication script verifies a clean checkout and the exact existing GitHub destination, rebuilds the site, then updates `gh-pages` through a temporary clone without force-pushing. A `main` push alone does not rebuild the deployed website. Check GitHub Pages deployment completion after publishing.

@@ -32,6 +32,11 @@ class ASTRA_PT_main(bpy.types.Panel):
         l.operator('astra.apply_quality')
         l.operator('astra.restore_render')
         l.operator('astra.generate_demo',icon='SCENE_DATA')
+        box=l.box()
+        box.label(text='Rooftop / Real-world context')
+        for key in ['view','shape','wetness','haze']:
+            box.prop(p,key)
+        box.operator('astra.generate_rooftop',icon='WORLD')
         l.operator('astra.validate_scene',icon='CHECKMARK')
         for line in p.validation_report.splitlines():
             l.label(text=line[:100])

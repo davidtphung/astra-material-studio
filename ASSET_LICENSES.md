@@ -5,3 +5,5 @@ All material textures in the browser are generated locally by deterministic Java
 - Three.js 0.186.1: MIT; license copied into deployed `vendor/LICENSE-three.txt`.
 - DM Sans and Space Grotesk: served by Google Fonts; distributed under SIL Open Font License by their upstream authors. Font files are not bundled here. System sans-serif and Georgia are fallback fonts.
 - Demonstration .blend and preview PNG: generated from the ASTRA source in this project using Blender 5.2.2.
+
+The rooftop world, its architectural geometry, props, signs and weathering are generated from `astra/world_data.py`. It depicts a fictional place. No real property survey or private location data was used. The torus-knot sample uses the same mathematical curve and tube-frame construction as Three.js TorusKnotGeometry; Three.js's MIT license is included in the deployed vendor directory.

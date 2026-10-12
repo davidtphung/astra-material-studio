@@ -1,0 +1,28 @@
+{
+  "blender": "5.2.2 LTS",
+  "checks": [
+    "Deterministic world definition",
+    "Complete workshop and surrounding neighbourhood",
+    "Browser and Blender share exact scene definition",
+    "Environment settings import",
+    "Environment parameters restored",
+    "Rooftop UI operator executes",
+    "Original user scene preserved",
+    "Metre-scale world",
+    "Hero material applied",
+    "Hero contacts the 0.99 metre support exactly",
+    "Three contextual camera presets",
+    "Motivated sky, task lamp and sign lights",
+    "Bounded atmospheric haze",
+    "User objects inside generated collection preserved",
+    "Regeneration keeps all datablock counts stable: {'objects': 4356, 'meshes': 40, 'materials': 31, 'lights': 4, 'cameras': 4, 'curves': 3} \u2192 {'objects': 4356, 'meshes': 40, 'materials': 31, 'lights': 4, 'cameras': 4, 'curves': 3}",
+    "Efficient shared geometry",
+    "Rooftop saved and reopened",
+    "Active contextual camera persists",
+    "Actual Cycles rooftop render",
+    "Clean add-on unregistration"
+  ],
+  "objects": 4340,
+  "render": "1200 x 900, Cycles CPU, 40 samples",
+  "scope": "Fictional procedural rooftop. Desktop/mobile browser previews are approximations."
+}
