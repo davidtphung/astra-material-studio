@@ -1,0 +1,10 @@
+import { cp, mkdir, rm } from 'node:fs/promises';
+await rm('dist', { recursive:true, force:true });
+await cp('web','dist',{recursive:true,filter:source=>!source.endsWith('.blend1')});
+await mkdir('dist/vendor/addons/controls',{recursive:true});
+await mkdir('dist/vendor/addons/geometries',{recursive:true});
+await mkdir('dist/vendor/addons/environments',{recursive:true});
+for (const file of ['three.module.js','three.core.js']) await cp(`node_modules/three/build/${file}`,`dist/vendor/${file}`);
+for (const file of ['controls/OrbitControls.js','geometries/RoundedBoxGeometry.js','environments/RoomEnvironment.js']) await cp(`node_modules/three/examples/jsm/${file}`,`dist/vendor/addons/${file}`);
+await cp('node_modules/three/LICENSE','dist/vendor/LICENSE-three.txt');
+console.log('Static website built in dist/');

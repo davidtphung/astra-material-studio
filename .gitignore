@@ -1,0 +1,7 @@
+node_modules/
+.vercel/
+dist/
+__pycache__/
+*.blend1
+.DS_Store
+artifacts/
